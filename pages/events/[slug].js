@@ -30,12 +30,12 @@ export default function EventPage({evt}){
                     </Link>
                 </div>
                 <span>
-                    {evt.date} at {evt.time}
+                    {new Date(evt.date).toLocaleDateString("en-US")} at {evt.time}
                 </span>
                 <h1>{evt.name}</h1>
                 { evt.image && (
                     <div className={styles.image}>
-                        <Image src={evt.image} width={960} height={600}/>
+                        <Image src={evt.image.formats.medium.url} width={960} height={600}/>
                     </div>
                 )}
                 <h3>
@@ -63,15 +63,14 @@ export default function EventPage({evt}){
 export async function getServerSideProps({query: {slug}}){
     console.log(slug)
 
-    const res = await fetch(`${API_URL}/api/events/${slug}`)
+    const res = await fetch(`${API_URL}/events?slug=${slug}`)
 
-    let event = await res.json();
+    let events = await res.json();
 
-    event = event["evt"][0]
 
     return {
         props: {
-            evt: event
+            evt: events[0]
         }
     }
 }

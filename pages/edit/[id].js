@@ -137,11 +137,15 @@ export default function EditEventPage({evt}){
 export async function getServerSideProps({params: {id}}){
     const res = await fetch(`${API_URL}/events/${id}`)
 
+
     const evt = await res.json();
+
+
+    console.log("El evento que esta presente en edit es ", evt)
 
     return{
         props: {
-            evt
+            evt: evt
         }
     }
 }

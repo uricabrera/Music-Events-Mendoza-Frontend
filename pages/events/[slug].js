@@ -37,7 +37,7 @@ export default function EventPage({evt}){
         <Layout>
             <div className={styles.event}>
                 <div className={styles.controls}>
-                    <Link href={`/events/edit/${evt.id}`}>
+                    <Link href={`/edit/${evt.id}`}>
                         <a><FaPencilAlt/> Edit Event</a>
                     </Link>
                     <Link href="#" className={styles.delete} onClick={deleteEvent}>
@@ -82,6 +82,9 @@ export async function getServerSideProps({query: {slug}}){
     const res = await fetch(`${API_URL}/events?slug=${slug}`)
 
     let events = await res.json();
+
+    console.log("El evento a imprimir es: ", events)
+
 
 
     return {
